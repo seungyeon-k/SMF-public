@@ -26,11 +26,11 @@ The official repository for \<A Statistical Manifold Framework for Point Cloud D
 matrices. </I>
 
 ### Interpolation
-![interpolation](figures/interpolation.png)
+![interpolation](figures/interpolation.PNG)
 <I> Figure 2: Left: Latent space with linear and geodesic interpolants. The orange interpolants connect a wide cylinder to a tall cylinder, while the magenta interpolants connect a cylinder to a cone. Linear interpolants and geodesic interpolants under the Euclidean and info-Riemannian metrics are drawn as dotted, dashed, and solid lines, respectively. Right: Generated point clouds from those interpolants. </I>
 
 ### Regularization
-![regularization](figures/regularization.png)
+![regularization](figures/regularization.PNG)
 <I>Figure 3: From left to right: latent spaces with equidistant
 ellipse $\{z|(z-z^*)^T G(z^*) (z-z^*) = 1\}$ centered on
 some selected points $z^*$, Gaussian Mixture Model
