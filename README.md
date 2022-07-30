@@ -38,10 +38,10 @@ some selected points $z^*$, Gaussian Mixture Model
 
 ## Progress
 - [x] Training script (`train.py`)
-- [ ] Dataset upload
-- [ ] Pre-trained model upload
+- [x] Dataset upload
 - [ ] Point cloud interpolation script (`interpolation.py`)
 - [ ] Regularization effect visualization script (`regularization.py`)
+- [ ] Pre-trained model upload
 - [ ] README final update
 - [ ] Data generation script (`data_generation.py`)
 
@@ -56,14 +56,14 @@ The project is developed under a standard PyTorch environment.
 
 ### Datasets
 Datasets should be stored in `datasets/` directory. Datasets can be set up in one of two ways.
-- Run the data generation script:
+- For synthetic 3D basic shape dataset, you can (i) download through the [Google drive link](https://drive.google.com/drive/folders/1NuGq2LtWG627r9BNPzb1EegUuIvPUzDr?usp=sharing) or (ii) run the following script to generate your own custom dataset:
 ```
 preparing...
 ```
 
-- Download through the [Google drive link](https://drive.google.com/drive/folders/1NuGq2LtWG627r9BNPzb1EegUuIvPUzDr?usp=sharing)
+- For standard benchmark dataset (ModelNet10, ModelNet40, and ShapeNetCore.v2), you can download through the [Github link](https://github.com/antao97/PointCloudDatasets).
 
-When set up, the pretrained directory should look like as follows.
+When set up, the `datasets/` directory should be follows.
 ```
 datasets
 ├── interpolation_dataset
@@ -72,6 +72,7 @@ datasets
 ├── regularization_dataset
 └── shapenetcorev2_hdf5_2048
 ```
+
 ### Pretrained model
 Pre-trained models should be stored in `pretrained/`. The pre-trained models are provided through the [Google drive link](https://drive.google.com/drive/folders/1NuYIfyU6kVQ09qPR6rONWrernKMps_FX?usp=sharing).
 When set up, the pretrained directory should look like as follows.
