@@ -12,13 +12,6 @@ The official repository for \<A Statistical Manifold Framework for Point Cloud D
 
 ## Preview
 ### Statistical Manifold and Information Geometry
-<!-- <center>
-<div class="imgCollage">
-<span style="width: 50.0%"><img src="./figures/statistical_manifold.PNG" width="250" height="100"/></span>
-<span style="width: 50.0%"><img src="./figures/vector_field.PNG" width="250" height="190"/> </span>
-</div>
-  <I>Figure 1: De-noising property of the NRAE (Left: Vanilla AE, Middle: NRAE-L, Right: NRAE-Q). </I>
-</center> -->
 <center>
 <img src="./figures/vector_field.PNG" alt="drawing" width="400"/>
 </center>
@@ -42,6 +35,7 @@ some selected points $z^*$, Gaussian Mixture Model
 - [x] Pre-trained model upload
 - [ ] Point cloud interpolation script (`interpolation.py`)
 - [ ] Regularization effect visualization script (`regularization.py`)
+- [ ] Requirements update
 - [ ] Data generation script (`data_generation.py`)
 - [ ] Tips for playing with code
 
@@ -60,10 +54,11 @@ Datasets should be stored in `datasets/` directory. Datasets can be set up as fo
 
 - For standard benchmark dataset (ModelNet10, ModelNet40, and ShapeNetCore.v2), you can download through the [Github link](https://github.com/antao97/PointCloudDatasets).
 
-- (Optional) or (ii) If you want to generate your own custom basic 3D shape dataset, run the following script:
+- (Optional) If you want to generate your own custom basic 3D shape dataset, run the following script:
 ```
 preparing...
 ```
+> **Tips for playing with code:** preparing...
 
 After set up, the `datasets/` directory should be as follows.
 ```
