@@ -41,7 +41,7 @@ model:
       number_of_points: 512  
 trainer: base
 training:
-  n_epoch: 5000
+  n_epoch: 500
   loss:
     type: chamfer
   optimizer:

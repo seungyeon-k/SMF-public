@@ -99,7 +99,27 @@ def latent_to_color(model, P, y, Zi, mode='nn', *args, **kwargs):
         color_interp = color_interp.numpy()
     return color_interp
 
-def run(config, device, writer, bsave):
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--run', default=None)
+    args = parser.parse_args()
+
+    config1 = ('regularization_config/vanilla', 'regularization_config.yml', 'model_best.pkl', {})
+    config2 = ('regularization_config/regularized', 'regularization_config.yml', 'model_best.pkl', {})
+    device = f'cuda:{0}'
+
+    logdir_home = 'train_results/figure_2'
+    if args.run is not None:
+        logdir = os.path.join(logdir_home, args.run)
+    else:
+        run_id = datetime.now().strftime('%Y%m%d-%H%M')
+        logdir = os.path.join(logdir_home, str(run_id))
+    writer = SummaryWriter(logdir=logdir)
+    print("Result directory: {}".format(logdir))
+    
+    bsave = True
+
+    config = [config1, config2]
 
     # mode
     mode = 'smoothed_nn'
@@ -112,7 +132,6 @@ def run(config, device, writer, bsave):
     k = 0.5
 
     for reg_idx, config_ in enumerate(config):
-    # for reg_idx, config_ in reversed(list(enumerate(config))):
         
         # print configuration
         if reg_idx == 0:
@@ -129,7 +148,7 @@ def run(config, device, writer, bsave):
 
         # Load pretrained model
         kwargs = {}
-        model, cfg = load_pretrained(identifier, config_file, ckpt_file, root='train_results/', **kwargs)
+        model, cfg = load_pretrained(identifier, config_file, ckpt_file, root='pretrained/', **kwargs)
         model.to(device)
 
         # Test Data Loader
@@ -467,39 +486,3 @@ def run(config, device, writer, bsave):
             os.makedirs(save_folder)
         save_name = os.path.join('figures/figure_2', str(file_name)) + '.npy'
         np.save(save_name, data_save)
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    # parser.add_argument('--identifier', type=str, default='superquadric_bcce_nonrot/z2_diverse/')
-    # parser.add_argument('--config_file', type=str, default='sq_config.yml')
-    # parser.add_argument('--ckpt_file', type=str, default='model_best.pkl')
-    # parser.add_argument('--device', default='cpu')
-    # parser.add_argument('--logdir', default='results/superquadric_bcce_nonrot/z2_diverse/interpolation/')
-    # parser.add_argument('--num_samples', default=10)
-    # parser.add_argument('--num_interpolates', default=10)
-    parser.add_argument('--run', default=None)
-    args = parser.parse_args()
-
-    # config1 = ('fm_shape_tuning_5/main_config_tanh/fm_reg_0.0_sigma_0.01_shape_b3e4c3_alpha_0_0.2_scale_1.0', 'main_config_tanh.yml', 'model_best.pkl', {})
-    # config2 = ('fm_shape_tuning_5/main_config_tanh/fm_reg_1000000_sigma_0.01_shape_b3e4c3_alpha_0_0.2_scale_1.0', 'main_config_tanh.yml', 'model_best.pkl', {})
-    
-    # config1 = ('regularize_config_new/fm_reg_none_alpha_0_none_I_false_out_linear', 'regularize_config_new.yml', 'model_best.pkl', {})
-    # config2 = ('regularize_config_new/fm_reg_10000000_alpha_0_0.0_I_false_out_linear', 'regularize_config_new.yml', 'model_best.pkl', {})
-
-    config1 = ('regularize_config_new_2/fm_reg_none_alpha_0_none_I_false_out_linear', 'regularize_config_new_2.yml', 'model_best.pkl', {})
-    config2 = ('regularize_config_new_2/fm_reg_10000000_alpha_0_0.0_I_false_out_linear', 'regularize_config_new_2.yml', 'model_best.pkl', {})
-    device = f'cuda:{0}'
-
-    logdir_home = 'train_results/figure_2'
-    if args.run is not None:
-        logdir = os.path.join(logdir_home, args.run)
-    else:
-        run_id = datetime.now().strftime('%Y%m%d-%H%M')
-        logdir = os.path.join(logdir_home, str(run_id))
-    writer = SummaryWriter(logdir=logdir)
-    print("Result directory: {}".format(logdir))
-    
-    bsave = True
-
-    config = [config1, config2]
-    run(config, device, writer, bsave)

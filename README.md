@@ -39,11 +39,11 @@ some selected points $z^*$, Gaussian Mixture Model
 ## Progress
 - [x] Training script (`train.py`)
 - [x] Dataset upload
+- [x] Pre-trained model upload
 - [ ] Point cloud interpolation script (`interpolation.py`)
 - [ ] Regularization effect visualization script (`regularization.py`)
-- [ ] Pre-trained model upload
-- [ ] README final update
 - [ ] Data generation script (`data_generation.py`)
+- [ ] Tips for playing with code
 
 ## Requirements
 ### Environment
@@ -55,15 +55,17 @@ The project is developed under a standard PyTorch environment.
 - tensorboard 2.4.1
 
 ### Datasets
-Datasets should be stored in `datasets/` directory. Datasets can be set up in one of two ways.
-- For synthetic 3D basic shape dataset, you can (i) download through the [Google drive link](https://drive.google.com/drive/folders/1NuGq2LtWG627r9BNPzb1EegUuIvPUzDr?usp=sharing) or (ii) run the following script to generate your own custom dataset:
+Datasets should be stored in `datasets/` directory. Datasets can be set up as follows.
+- For synthetic 3D basic shape dataset, you can download through the [Google drive link](https://drive.google.com/drive/folders/1NuGq2LtWG627r9BNPzb1EegUuIvPUzDr?usp=sharing).
+
+- For standard benchmark dataset (ModelNet10, ModelNet40, and ShapeNetCore.v2), you can download through the [Github link](https://github.com/antao97/PointCloudDatasets).
+
+- (Optional) or (ii) If you want to generate your own custom basic 3D shape dataset, run the following script:
 ```
 preparing...
 ```
 
-- For standard benchmark dataset (ModelNet10, ModelNet40, and ShapeNetCore.v2), you can download through the [Github link](https://github.com/antao97/PointCloudDatasets).
-
-When set up, the `datasets/` directory should be follows.
+After set up, the `datasets/` directory should be as follows.
 ```
 datasets
 ├── interpolation_dataset
@@ -74,8 +76,16 @@ datasets
 ```
 
 ### Pretrained model
-Pre-trained models should be stored in `pretrained/`. The pre-trained models are provided through the [Google drive link](https://drive.google.com/drive/folders/1NuYIfyU6kVQ09qPR6rONWrernKMps_FX?usp=sharing).
-When set up, the pretrained directory should look like as follows.
+Pre-trained models should be stored in `pretrained/`. The pre-trained models are provided through the [Google drive link](https://drive.google.com/drive/folders/1NuYIfyU6kVQ09qPR6rONWrernKMps_FX?usp=sharing). After set up, the `pretrained/` directory should be as follows.
+```
+pretrained
+├── interpolation_config
+│   ├── vanilla
+│   └── regularized
+└── regularization_config
+    ├── vanilla
+    └── regularized
+```
 
 ## Running 
 ### Training
@@ -98,13 +108,15 @@ python train.py --config configs/{M}_config.yml --model.fm_reg {F}
 - `M` is either `fcnet`, `foldingnet`, `pointcapsnet`, or `dgcnnfcnet`.
 - `F` is either `None` or positive real numbers (see Appendix D.2.1 for the values ​​used).
 
-Training on standard benchmark dataset (Section 4.2, Table 3 and Table 4):
+Training on standard benchmark dataset for noisy and semi-supervised settings (Section 4.2, Table 3 and Table 4):
 ```
 python train.py --config configs/fcnet_{E}_{V}_config.yml --model.fm_reg {F} 
 ```
 - `E` is either `noise` or `semi`.
 - If `E` is `noise`, then `V` is either `1`, `5`, `10`, or `20`. If `E` is `semi`, then `V` is either `50`, `10`, `5`, or `1`.
 - `F` is either `None` or `8000`.
+
+> **Tips for playing with code:** preparing...
 
 ### Interpolation
 preparing...
