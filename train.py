@@ -24,6 +24,8 @@ def parse_arg_type(val):
         return True
     if (val == 'False') or (val == 'false'):
         return False
+    if (val == 'null') or (val == 'None'):
+        return None
     try:
         return float(val)
     except ValueError:

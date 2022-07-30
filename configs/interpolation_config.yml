@@ -28,10 +28,6 @@ model:
       l_hidden: [512, 256]
       use_batch_norm: False
       output_dim: 2
-    # module1: 
-    #   arch: foldnet
-    #   feat_dims: 2 
-    #   k: 16
   decoder: 
     module1: 
       arch: mlp_pointcloud
@@ -64,7 +60,7 @@ logger:
 data:
   training:
     loader: superquadric
-    path: datasets/interpolation_old_4
+    path: datasets/interpolation_dataset
     csv_name: train_datalist.csv
     object_types: ['cone', 'cylinder', 'ellipsoid']
     input_type: full
@@ -76,7 +72,7 @@ data:
     num_workers: 8
   validation:
     loader: superquadric
-    path: datasets/interpolation_old_4
+    path: datasets/interpolation_dataset
     csv_name: validation_datalist.csv
     object_types: ['cone', 'cylinder', 'ellipsoid']
     input_type: full
@@ -88,7 +84,7 @@ data:
     num_workers: 8
   test:
     loader: superquadric
-    path: datasets/interpolation_old_4
+    path: datasets/interpolation_dataset
     csv_name: test_datalist.csv
     object_types: ['cone', 'cylinder', 'ellipsoid']
     input_type: full

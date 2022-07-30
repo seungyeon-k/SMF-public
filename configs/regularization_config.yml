@@ -60,7 +60,7 @@ logger:
 data:
   training:
     loader: superquadric2
-    path: datasets/regularization
+    path: datasets/regularization_dataset
     shape_list: ['box_normal', 'cone_normal', 'ellipsoid_short']
     input_noise: False
     input_normalization: True
@@ -70,7 +70,7 @@ data:
     num_workers: 8
   validation:
     loader: superquadric2
-    path: datasets/regularization
+    path: datasets/regularization_dataset
     shape_list: ['box_normal', 'cone_normal', 'ellipsoid_short']
     input_noise: False
     input_normalization: True  
@@ -80,7 +80,7 @@ data:
     num_workers: 8
   test:
     loader: superquadric2
-    path: datasets/regularization
+    path: datasets/regularization_dataset
     shape_list: ['box_normal', 'cone_normal', 'ellipsoid_short']
     input_noise: False
     input_normalization: True    

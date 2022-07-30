@@ -2,7 +2,8 @@ model:
   arch: base_arch
   relaxation: True
   fm_reg: null # tuning parameter
-  k: 0.5 # tuning parameter
+  k: 0.8 # tuning parameter
+  alpha_0: 0.2 # tuning parameter
   latent_show: False
   visualization: False
   encoder: 
@@ -43,10 +44,11 @@ logger:
   type: base
 data:
   training:
-    loader: modelnet10 # tuning parameter
+    loader: shapenetcorev2 # tuning parameter
     path: datasets
     split: all
     random_rotate: True
+    random_noise: 0.1
     batch_size: 16
     num_workers: 8
 student:
@@ -55,11 +57,28 @@ student:
       loader: modelnet10 # tuning parameter
       path: datasets
       split: trainval
+      random_noise: 0.1
       batch_size: 16
       num_workers: 8
     test:
       loader: modelnet10 # tuning parameter
       path: datasets
       split: test
+      random_noise: 0.1
+      batch_size: 16
+      num_workers: 8
+  modelnet40:
+    training:
+      loader: modelnet40 # tuning parameter
+      path: datasets
+      split: trainval
+      random_noise: 0.1
+      batch_size: 16
+      num_workers: 8
+    test:
+      loader: modelnet40 # tuning parameter
+      path: datasets
+      split: test
+      random_noise: 0.1
       batch_size: 16
       num_workers: 8

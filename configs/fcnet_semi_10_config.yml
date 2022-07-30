@@ -2,7 +2,8 @@ model:
   arch: base_arch
   relaxation: True
   fm_reg: null # tuning parameter
-  k: 0.5 # tuning parameter
+  k: 0.8 # tuning parameter
+  alpha_0: 0.2 # tuning parameter
   latent_show: False
   visualization: False
   encoder: 
@@ -10,11 +11,21 @@ model:
       arch: foldnet
       feat_dims: 512 # tuning parameter
       k: 16
+    # module1: 
+    #   arch: dgcnn_cls
+    #   feat_dims: 512 # tuning parameter
+    #   k: 16
   decoder: 
     module1: 
-      arch: foldnet
-      shape: plane
-      feat_dims: 512 # tuning parameter
+      arch: mlp_pointcloud
+      input_dim: 512 # tuning parameter
+      activation: relu
+      leakyrelu_slope: None
+      out_activation: linear
+      l_hidden: [1024, 2048]
+      use_batch_norm: False
+      output_point_dim: 3
+      number_of_points: 2048  
 trainer: teacher
 training:
   n_epoch: 500
@@ -33,18 +44,33 @@ logger:
   type: base
 data:
   training:
-    loader: modelnet40 # tuning parameter
+    loader: shapenetcorev2 # tuning parameter
     path: datasets
     split: all
     random_rotate: True
     batch_size: 16
     num_workers: 8
 student:
+  modelnet10:
+    training:
+      loader: modelnet10 # tuning parameter
+      path: datasets
+      split: trainval
+      label_rate: 0.1
+      batch_size: 16
+      num_workers: 8
+    test:
+      loader: modelnet10 # tuning parameter
+      path: datasets
+      split: test
+      batch_size: 16
+      num_workers: 8
   modelnet40:
     training:
       loader: modelnet40 # tuning parameter
       path: datasets
       split: trainval
+      label_rate: 0.1
       batch_size: 16
       num_workers: 8
     test:

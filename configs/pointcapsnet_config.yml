@@ -2,7 +2,7 @@ model:
   arch: base_arch
   relaxation: True
   fm_reg: null # tuning parameter
-  k: 0.5 # tuning parameter
+  k: 0.8 # tuning parameter
   alpha_0: 0.2 # tuning parameter
   latent_show: False
   visualization: False

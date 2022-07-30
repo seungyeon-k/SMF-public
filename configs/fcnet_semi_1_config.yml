@@ -8,9 +8,13 @@ model:
   visualization: False
   encoder: 
     module1: 
-      arch: dgcnn_cls
+      arch: foldnet
       feat_dims: 512 # tuning parameter
-      k: 20
+      k: 16
+    # module1: 
+    #   arch: dgcnn_cls
+    #   feat_dims: 512 # tuning parameter
+    #   k: 16
   decoder: 
     module1: 
       arch: mlp_pointcloud
@@ -52,6 +56,7 @@ student:
       loader: modelnet10 # tuning parameter
       path: datasets
       split: trainval
+      label_rate: 0.01
       batch_size: 16
       num_workers: 8
     test:
@@ -65,6 +70,7 @@ student:
       loader: modelnet40 # tuning parameter
       path: datasets
       split: trainval
+      label_rate: 0.01
       batch_size: 16
       num_workers: 8
     test:
