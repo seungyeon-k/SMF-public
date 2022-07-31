@@ -6,7 +6,6 @@ import torch
 from torchvision.transforms import ToTensor, Compose, Resize, CenterCrop, Normalize
 from torch.utils.data.sampler import SubsetRandomSampler
 sys.path.append("..")
-from functions import lie
 from loader.superquadric_dataset import SuperquadricDataset
 from loader.superquadric_dataset2 import SuperquadricDataset2
 from loader.large_scale_pc_dataset import Dataset as LS_Dataset

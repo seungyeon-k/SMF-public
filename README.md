@@ -33,7 +33,7 @@ some selected points $z^*$, Gaussian Mixture Model
 - [x] Training script (`train.py`)
 - [x] Dataset upload
 - [x] Pre-trained model upload
-- [ ] Point cloud interpolation script (`interpolation.py`)
+- [x] Point cloud interpolation script (`interpolation.py`)
 - [ ] Regularization effect visualization script (`regularization.py`)
 - [ ] Requirements update
 - [ ] Data generation script (`data_generation.py`)
@@ -47,18 +47,15 @@ The project is developed under a standard PyTorch environment.
 - pytorch 1.8.0
 - CUDA 11.3
 - tensorboard 2.4.1
+- [torchcubicspline](https://github.com/patrick-kidger/torchcubicspline)
+- Open3D 0.13.0
+> **Warining:** We confirmed that the latest version of Open3D has slightly different syntax than the version we used. We highly recommend using the Open3D version of 0.13.0 as noted above.
 
 ### Datasets
 Datasets should be stored in `datasets/` directory. Datasets can be set up as follows.
 - For synthetic 3D basic shape dataset, you can download through the [Google drive link](https://drive.google.com/drive/folders/1NuGq2LtWG627r9BNPzb1EegUuIvPUzDr?usp=sharing).
 
-- For standard benchmark dataset (ModelNet10, ModelNet40, and ShapeNetCore.v2), you can download through the [Github link](https://github.com/antao97/PointCloudDatasets).
-
-- (Optional) If you want to generate your own custom basic 3D shape dataset, run the following script:
-```
-preparing...
-```
-> **Tips for playing with code:** preparing...
+- For standard benchmark dataset (ModelNet10, ModelNet40, and ShapeNetCore.v2), you can download through the Github link ([https://github.com/antao97/PointCloudDatasets](https://github.com/antao97/PointCloudDatasets)).
 
 After set up, the `datasets/` directory should be as follows.
 ```
@@ -69,6 +66,12 @@ datasets
 ├── regularization_dataset
 └── shapenetcorev2_hdf5_2048
 ```
+
+- (Optional) If you want to generate your own custom basic 3D shape dataset, run the following script:
+```
+preparing...
+```
+> **Tips for playing with code:** preparing...
 
 ### Pretrained model
 Pre-trained models should be stored in `pretrained/`. The pre-trained models are provided through the [Google drive link](https://drive.google.com/drive/folders/1NuYIfyU6kVQ09qPR6rONWrernKMps_FX?usp=sharing). After set up, the `pretrained/` directory should be as follows.
@@ -84,6 +87,12 @@ pretrained
 
 ## Running 
 ### Training
+The training script is `train.py`. 
+- `--config` specifies a path to a configuration yml file.
+- `--logdir` specifies a directory where the results will be saved.
+- `--run` specifies a name for an experiment.
+- `--device` specifies an GPU number to use.
+
 Training on synthetic 3D basic shape dataset for interpolation experiment (Section 4.1.1):
 ```
 python train.py --config configs/interpolation_config.yml --model.fm_reg {F}
@@ -92,7 +101,7 @@ python train.py --config configs/interpolation_config.yml --model.fm_reg {F}
 
 Training on synthetic 3D basic shape dataset for regularization experiment (Section 4.1.2):
 ```
-python train.py --config configs/regularization_config.yml --model.fm_reg {A}
+python train.py --config configs/regularization_config.yml --model.fm_reg {F}
 ```
 - `F` is either `None` or `10000000`.
 
@@ -114,13 +123,32 @@ python train.py --config configs/fcnet_{E}_{V}_config.yml --model.fm_reg {F}
 > **Tips for playing with code:** preparing...
 
 ### Interpolation
-preparing...
+The interpolation scripts consist of two python code: `interpolation.py` and `interpolation_renderer.py`.
+- `interpolation.py` makes a tensorboard file in `interpolation_results/tensorboard` where the results are visualized and a npy file in `interpolation_results/data` for rendering the (beautiful) result figures.
+  - `--example` specifies an index for the interpolation examples. The value should be `0`, `1`, or `2`.
+  - `--device` specifies an GPU number to use.
+  - `--run` specifies a name for an experiment.
+  - If you see the results in tensorboard, run this code:
+  ```
+  tensorboard --logdir interpolation_results/tensorboard --host {ip address}
+  ```
+- `interpolation_renderer.py` reads a npy file in `interpolation_results/data` and makes a png figure in `interpolation_results/png` and a gif simple animated figure in `interpolation_results/gif`.
+  - `--run` specifies a name for the experiment to render figures.
+
+Example code:
+```
+python interpolation.py --example 2 --run run123
+python interpolation_renderer.py --run run123
+```
+> **Warning:** The rendering code `interpolation_renderer.py` does not work in server (i.e., without a connected display). If you want to render figures in server, try [Open3D headless rendering](http://www.open3d.org/docs/latest/tutorial/Advanced/headless_rendering.html).
+
+> **Tips for playing with code:** preparing...
 
 ### Regularization
 preparing...
 
 ## Citation
-If you found this library useful in your research, please consider citing:
+If you found this repository useful in your research, please consider citing:
 ```
 @inproceedings{lee2022statistical,
   title={A Statistical Manifold Framework for Point Cloud Data},

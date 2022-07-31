@@ -1,4 +1,9 @@
 import numpy as np
+from datetime import datetime
+
+import open3d as o3d
+import open3d.visualization.gui as gui
+import open3d.visualization.rendering as rendering
 from matplotlib.patches import Ellipse, Rectangle, Polygon
 
 def label_to_color(label):
@@ -26,6 +31,76 @@ def label_to_color(label):
         color[label == idx_color, :] = rgb[idx_color, :]
 
     return color
+
+def gallery(array, ncols=3):
+    nindex, height, width, intensity = array.shape
+    nrows = nindex//ncols
+    assert nindex == nrows*ncols
+    # want result.shape = (height*nrows, width*ncols, intensity)
+    result = (array.reshape(nrows, ncols, height, width, intensity)
+              .swapaxes(1,2)
+              .reshape(height*nrows, width*ncols, intensity))
+    return result
+
+def render_pointcloud(X, 
+                    visualize=True, 
+                    camera_config=None,
+                    return_camera_config=True,
+                    save_path=None,
+                    camera_position=[0.0, 1.0, 0.7],
+                    image_size=[600, 960]):
+
+    # define ground plane
+    a = 10.0
+    plane = o3d.geometry.TriangleMesh.create_box(width=a, depth=0.05, height=a)
+    plane.paint_uniform_color([1.0, 1.0, 1.0])
+    plane.translate([-a/2, -a/2, -0.6])
+    plane.compute_vertex_normals()
+    mat_plane = rendering.Material()
+    mat_plane.shader = 'defaultLit'
+    mat_plane.base_color = [1.0, 1.0, 1.0, 4.0]
+
+    # object material
+    mat = rendering.Material()
+    mat.shader = 'defaultLit'
+
+    # set window
+    if visualize:
+        gui.Application.instance.initialize()
+        window = gui.Application.instance.create_window(str(datetime.now().strftime('%H%M%S')), width=image_size[0], height=image_size[1])
+        widget = gui.SceneWidget()
+        widget.scene = rendering.Open3DScene(window.renderer)
+        window.add_child(widget) 
+    else:
+        gui.Application.instance.initialize()
+        widget = o3d.visualization.rendering.OffscreenRenderer(image_size[0], image_size[1])
+
+    # camera view point selection
+    # widget.scene.camera.look_at([0,0,0], [1,1,1], [0,0,1])
+    widget.setup_camera(60.0, [0, 0, 0], camera_position, [0, 0, 1])
+    if camera_config is not None:
+        widget.scene.camera.copy_from(camera_config)
+
+    # add geometries and lighting
+    widget.scene.add_geometry('mesh', X, mat)
+    widget.scene.add_geometry('plane', plane, mat_plane)
+    widget.scene.set_lighting(widget.scene.LightingProfile.DARK_SHADOWS, (0.3, -0.3, -0.9))
+    widget.scene.set_background([1.0, 1.0, 1.0, 3.0], image=None)
+
+    if visualize:
+        while gui.Application.instance.run_one_tick():
+            camera_config_current = widget.scene.camera
+
+        if return_camera_config:
+            return camera_config_current
+    else:
+        img_o3d = widget.render_to_image()
+        if save_path is not None:
+            o3d.io.write_image(save_path, img_o3d, 9)
+            print(f'image saved with name : {save_path}')
+        else:
+            o3d.io.write_image('temp.png', img_o3d, 9)
+            print('image saved with name : temp.png')
 
 def figure_to_array(fig):
     

@@ -132,3 +132,5 @@ dmypy.json
 datasets/
 pretrained/
 .vscode
+train_results/
+interpolation_results/

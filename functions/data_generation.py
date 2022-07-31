@@ -4,11 +4,16 @@ import os
 from functions.superquadric import Superquadric_Object
 from scipy.stats import special_ortho_group
 import re
-from functions import lie_alg as lie_alg
 import csv
 import math
 import random
 import shutil
+
+def define_SE3(R, p):
+    SE3 = np.identity(4)
+    SE3[0:3, 0:3] = R
+    SE3[0:3, 3] = p
+    return SE3
 
 def generate_data(
         config, 
@@ -86,8 +91,8 @@ def generate_data(
                     # theta = np.random.uniform(0, np.pi)
                     theta = np.random.uniform(-np.pi/4, np.pi/4)
                     R = np.array([[np.cos(theta), -np.sin(theta), 0], [np.sin(theta), np.cos(theta), 0], [0, 0, 1]])
-                    # obj.transform_object(lie_alg.define_SE3(special_ortho_group.rvs(3), [0, 0, 0]))
-                    obj.transform_object(lie_alg.define_SE3(R, [0, 0, 0]))
+                    # obj.transform_object(define_SE3(special_ortho_group.rvs(3), [0, 0, 0]))
+                    obj.transform_object(define_SE3(R, [0, 0, 0]))
 
                 full_obj_pcd = obj.mesh.sample_points_poisson_disk(num_pnts, use_triangle_normal = True)
 
