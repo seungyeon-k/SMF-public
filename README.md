@@ -20,14 +20,11 @@ matrices. </I> -->
 
 ### Geodesic Point Cloud Interpolation
 ![interpolation](figures/interpolation.PNG)
-<I> Figure 2: Left: Latent space with linear and geodesic interpolants. The orange interpolants connect a wide cylinder to a tall cylinder, while the magenta interpolants connect a cylinder to a cone. Linear interpolants and geodesic interpolants under the Euclidean and info-Riemannian metrics are drawn as dotted, dashed, and solid lines, respectively. Right: Generated point clouds from those interpolants. </I>
+<I>Figure 1: Left: Latent space with linear and geodesic interpolants. The orange interpolants connect a wide cylinder to a tall cylinder, while the magenta interpolants connect a cylinder to a cone. Linear interpolants and geodesic interpolants under the Euclidean and info-Riemannian metrics are drawn as dotted, dashed, and solid lines, respectively. Right: Generated point clouds from those interpolants. </I>
 
 ### Point Cloud Autoencoder Regularization
 ![regularization](figures/regularization.PNG)
-<I>Figure 3: From left to right: latent spaces with equidistant
-ellipse $\{z|(z-z^*)^T G(z^*) (z-z^*) = 1\}$ centered on
-some selected points $z^*$, Gaussian Mixture Model
-(GMM) fitting results, generated samples from the GMM, and the heat map of the pairwise Euclidean distances in the latent space of all test data. The upper figure is a vanilla autoencoder trained without regularization, while the lower figure is trained with regularization (using the proposed info-Riemannian metric). </I>
+<I>Figure 2: From left to right: latent spaces with equidistant ellipse centered on some selected points, Gaussian Mixture Model (GMM) fitting results, generated samples from the GMM, and the heat map of the pairwise Euclidean distances in the latent space of all test data. The upper figure is a vanilla autoencoder trained without regularization, while the lower figure is trained with regularization (using the proposed info-Riemannian metric). </I>
 
 ## Progress
 - [x] Training script (`train.py`)
@@ -35,7 +32,7 @@ some selected points $z^*$, Gaussian Mixture Model
 - [x] Pre-trained model upload
 - [x] Point cloud interpolation script (`interpolation.py`)
 - [x] Regularization effect visualization script (`regularization.py`)
-- [ ] Requirements update
+- [x] Requirements update
 - [ ] Data generation script (`data_generation.py`)
 - [ ] Tips for playing with code
 
@@ -44,6 +41,8 @@ some selected points $z^*$, Gaussian Mixture Model
 The project is developed under a standard PyTorch environment.
 - python 3.8.8
 - numpy
+- scipy
+- matplotlib
 - pytorch 1.8.0
 - CUDA 11.3
 - tensorboard 2.4.1
@@ -138,9 +137,17 @@ The interpolation scripts consist of two python code: `interpolation.py` and `in
 
 Example code:
 ```
-python interpolation.py --example 2 --run run1
+python interpolation.py --example 0 --run run1
 python interpolation_renderer.py --run run1
 ```
+Sample gif images for interpolation:
+<div class="imgCollage">
+<span style="width: 31.8%"><img src="figures/example_linear_interpolation.gif" width="200"></span>
+<span style="width: 31.8%"><img src="figures/example_euclidean_interpolation.gif" width="200"> </span>
+<span style="width: 31.8%"><img src="figures/example_riemannian_interpolation.gif" width="200"> </span>
+</div>
+  <I>Figure 3: Linear interpolants (left) and geodesic interpolants under the Euclidean (middle) and info-Riemannian metrics (right). </I>
+  
 > **Tips for playing with code:** preparing...
 
 ### Regularization
