@@ -140,15 +140,15 @@ Example code:
 python interpolation.py --example 0 --run run1
 python interpolation_renderer.py --run run1
 ```
+> **Tips for playing with code:** preparing...
+
 Sample gif images for interpolation:
 <div class="imgCollage">
-<span style="width: 31.8%"><img src="figures/example_linear_interpolation.gif" width="200"></span>
-<span style="width: 31.8%"><img src="figures/example_euclidean_interpolation.gif" width="200"> </span>
-<span style="width: 31.8%"><img src="figures/example_riemannian_interpolation.gif" width="200"> </span>
+<span style="width: 31.8%"><img src="figures/example_linear_interpolation.gif" width="250"></span>
+<span style="width: 31.8%"><img src="figures/example_euclidean_interpolation.gif" width="250"> </span>
+<span style="width: 31.8%"><img src="figures/example_riemannian_interpolation.gif" width="250"> </span>
 </div>
   <I>Figure 3: Linear interpolants (left) and geodesic interpolants under the Euclidean (middle) and info-Riemannian metrics (right). </I>
-  
-> **Tips for playing with code:** preparing...
 
 ### Regularization
 Similarly, the regularization scripts also consist of two python code: `regularization.py` and `regularization_renderer.py`.
