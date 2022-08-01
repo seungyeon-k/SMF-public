@@ -11,12 +11,12 @@ The official repository for \<A Statistical Manifold Framework for Point Cloud D
 - *[Poster](https://drive.google.com/file/d/1NuyQaG-g3zwWQEl6qS5tl5_H3oKsEzcK/view?usp=sharing)*  
 
 ## Preview
-### Statistical Manifold and Information Geometry
+<!-- ### Statistical Manifold and Information Geometry
 <center>
 <img src="./figures/vector_field.PNG" alt="drawing" width="400"/>
 </center>
 <I> Figure 1: Two moving point clouds with different velocity
-matrices. </I>
+matrices. </I> -->
 
 ### Geodesic Point Cloud Interpolation
 ![interpolation](figures/interpolation.PNG)
@@ -34,7 +34,7 @@ some selected points $z^*$, Gaussian Mixture Model
 - [x] Dataset upload
 - [x] Pre-trained model upload
 - [x] Point cloud interpolation script (`interpolation.py`)
-- [ ] Regularization effect visualization script (`regularization.py`)
+- [x] Regularization effect visualization script (`regularization.py`)
 - [ ] Requirements update
 - [ ] Data generation script (`data_generation.py`)
 - [ ] Tips for playing with code
@@ -47,6 +47,7 @@ The project is developed under a standard PyTorch environment.
 - pytorch 1.8.0
 - CUDA 11.3
 - tensorboard 2.4.1
+- scikit-learn 0.24.1
 - [torchcubicspline](https://github.com/patrick-kidger/torchcubicspline)
 - Open3D 0.13.0
 > **Warining:** We confirmed that the latest version of Open3D has slightly different syntax than the version we used. We highly recommend using the Open3D version of 0.13.0 as noted above.
@@ -128,7 +129,7 @@ The interpolation scripts consist of two python code: `interpolation.py` and `in
   - `--example` specifies an index for the interpolation examples. The value should be `0`, `1`, or `2`.
   - `--device` specifies an GPU number to use.
   - `--run` specifies a name for an experiment.
-  - If you see the results in tensorboard, run this code:
+  - If you want to see the results in tensorboard after code execution, run this code:
   ```
   tensorboard --logdir interpolation_results/tensorboard --host {ip address}
   ```
@@ -137,15 +138,31 @@ The interpolation scripts consist of two python code: `interpolation.py` and `in
 
 Example code:
 ```
-python interpolation.py --example 2 --run run123
-python interpolation_renderer.py --run run123
+python interpolation.py --example 2 --run run1
+python interpolation_renderer.py --run run1
 ```
-> **Warning:** The rendering code `interpolation_renderer.py` does not work in server (i.e., without a connected display). If you want to render figures in server, try [Open3D headless rendering](http://www.open3d.org/docs/latest/tutorial/Advanced/headless_rendering.html).
-
 > **Tips for playing with code:** preparing...
 
 ### Regularization
-preparing...
+Similarly, the regularization scripts also consist of two python code: `regularization.py` and `regularization_renderer.py`.
+- `regularization.py` makes a tensorboard file in `regularization_results/tensorboard` and a npy file in `regularization_results/data`.
+  - `--device` specifies an GPU number to use.
+  - `--run` specifies a name for an experiment.
+  - If you want to see the results in tensorboard after code execution, run this code:
+  ```
+  tensorboard --logdir regularization_results/tensorboard --host {ip address}
+  ```
+- `regularization_renderer.py` reads a npy file in `regularization_results/data` and makes a png figure in `regularization_results/png`.
+  - `--run` specifies a name for the experiment to render figures.
+
+Example code:
+```
+python regularization.py --run run2
+python regularization_renderer.py --run run2
+```
+> **Tips for playing with code:** preparing...
+
+> **Warning:** The rendering code `interpolation_renderer.py` and `regularization_renderer.py` does not work in server (i.e., without a connected display). If you want to render figures in server, try [Open3D headless rendering](http://www.open3d.org/docs/latest/tutorial/Advanced/headless_rendering.html).
 
 ## Citation
 If you found this repository useful in your research, please consider citing:

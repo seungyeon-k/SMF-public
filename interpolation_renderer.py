@@ -2,7 +2,6 @@ import os
 import argparse
 import numpy as np
 import open3d as o3d
-from datetime import datetime
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import matplotlib.animation as animation

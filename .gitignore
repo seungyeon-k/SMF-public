@@ -134,3 +134,4 @@ pretrained/
 .vscode
 train_results/
 interpolation_results/
+regularization_results/

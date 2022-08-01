@@ -12,8 +12,7 @@ from tensorboardX import SummaryWriter
 from datetime import datetime
 
 from loader import get_dataloader
-from models import get_model, load_pretrained
-from loss import ChamferLoss
+from models import load_pretrained
 
 from functions.util import label_to_color, figure_to_array
 from functions.cubic_spline import cubic_spline_curve
@@ -21,8 +20,8 @@ from functions.color_assignment import latent_to_color
 
 if __name__ == '__main__':
 
-    #\########################################################################
-    #\######################### Initial Settings ############################
+    #########################################################################
+    ########################### Initial Settings ############################
     #########################################################################
 
     # argument parsing
@@ -68,7 +67,8 @@ if __name__ == '__main__':
 
     # save path
     save_folder = 'interpolation_results/data'
-    file_name = datetime.now().strftime('%Y%m%d-%H%M')
+    if not os.path.exists(save_folder):
+        os.makedirs(save_folder)   
     save_name = os.path.join(save_folder, str(run_id))
 
     #########################################################################
