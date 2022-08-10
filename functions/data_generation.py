@@ -1,13 +1,12 @@
 import numpy as np
 import open3d as o3d
 import os
-from functions.superquadric import Superquadric_Object
-from scipy.stats import special_ortho_group
 import re
 import csv
 import math
 import random
-import shutil
+
+from functions.superquadric import Superquadric_Object
 
 def define_SE3(R, p):
     SE3 = np.identity(4)
@@ -53,7 +52,6 @@ def generate_data(
 
         # iteration for the number of objects in a shape type
         for object_num in range(obj_start_num, num_objects):
-        # for object_num in range(0, num_objects):
 
             # load object
             obj = Superquadric_Object(config_obj)
@@ -67,20 +65,6 @@ def generate_data(
                 vis.add_geometry(obj.mesh)
                 vis.run()
                 vis.destroy_window()
-            
-            # if not os.path.exists(dir_name):
-            #     os.makedirs(dir_name)
-            # else:
-            #     while 1:
-            #         answer = input('There already exists the directory. Do u want to remove it? (y/n): ')
-            #         if answer == 'y':
-            #             shutil.rmtree(dir_name)
-            #             os.makedirs(dir_name)
-            #             break
-            #         elif answer == 'n':
-            #             break
-            #         else:
-            #             print('invalid keys!')
                     
             for view_point_num in range(num_rots):
 
@@ -88,10 +72,8 @@ def generate_data(
 
                 # random orientation
                 if num_rots > 1:
-                    # theta = np.random.uniform(0, np.pi)
                     theta = np.random.uniform(-np.pi/4, np.pi/4)
                     R = np.array([[np.cos(theta), -np.sin(theta), 0], [np.sin(theta), np.cos(theta), 0], [0, 0, 1]])
-                    # obj.transform_object(define_SE3(special_ortho_group.rvs(3), [0, 0, 0]))
                     obj.transform_object(define_SE3(R, [0, 0, 0]))
 
                 full_obj_pcd = obj.mesh.sample_points_poisson_disk(num_pnts, use_triangle_normal = True)

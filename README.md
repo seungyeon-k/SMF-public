@@ -11,12 +11,6 @@ The official repository for \<A Statistical Manifold Framework for Point Cloud D
 - *[Poster](https://drive.google.com/file/d/1NuyQaG-g3zwWQEl6qS5tl5_H3oKsEzcK/view?usp=sharing)*  
 
 ## Preview
-<!-- ### Statistical Manifold and Information Geometry
-<center>
-<img src="./figures/vector_field.PNG" alt="drawing" width="400"/>
-</center>
-<I> Figure 1: Two moving point clouds with different velocity
-matrices. </I> -->
 
 ### Geodesic Point Cloud Interpolation
 ![interpolation](figures/interpolation.PNG)
@@ -25,16 +19,6 @@ matrices. </I> -->
 ### Point Cloud Autoencoder Regularization
 ![regularization](figures/regularization.PNG)
 <I>Figure 2: From left to right: latent spaces with equidistant ellipse centered on some selected points, Gaussian Mixture Model (GMM) fitting results, generated samples from the GMM, and the heat map of the pairwise Euclidean distances in the latent space of all test data. The upper figure is a vanilla autoencoder trained without regularization, while the lower figure is trained with regularization (using the proposed info-Riemannian metric). </I>
-
-## Progress
-- [x] Training script (`train.py`)
-- [x] Dataset upload
-- [x] Pre-trained model upload
-- [x] Point cloud interpolation script (`interpolation.py`)
-- [x] Regularization effect visualization script (`regularization.py`)
-- [x] Requirements update
-- [ ] Data generation script (`data_generation.py`)
-- [ ] Tips for playing with code
 
 ## Requirements
 ### Environment
@@ -69,9 +53,9 @@ datasets
 
 - (Optional) If you want to generate your own custom basic 3D shape dataset, run the following script:
 ```
-preparing...
+python data_generation.py
 ```
-> **Tips for playing with code:** preparing...
+The above script is for generation of regularization dataset. The interpolation dataset comes from our other research ([https://github.com/seungyeon-k/DSQNet-public](https://github.com/seungyeon-k/DSQNet-public)).
 
 ### Pretrained model
 Pre-trained models should be stored in `pretrained/`. The pre-trained models are provided through the [Google drive link](https://drive.google.com/drive/folders/1NuYIfyU6kVQ09qPR6rONWrernKMps_FX?usp=sharing). After set up, the `pretrained/` directory should be as follows.
@@ -120,8 +104,6 @@ python train.py --config configs/fcnet_{E}_{V}_config.yml --model.fm_reg {F}
 - If `E` is `noise`, then `V` is either `1`, `5`, `10`, or `20`. If `E` is `semi`, then `V` is either `50`, `10`, `5`, or `1`.
 - `F` is either `None` or `8000`.
 
-> **Tips for playing with code:** preparing...
-
 ### Interpolation
 The interpolation scripts consist of two python code: `interpolation.py` and `interpolation_renderer.py`.
 - `interpolation.py` makes a tensorboard file in `interpolation_results/tensorboard` where the results are visualized and a npy file in `interpolation_results/data` for rendering the (beautiful) result figures.
@@ -140,7 +122,6 @@ Example code:
 python interpolation.py --example 0 --run run1
 python interpolation_renderer.py --run run1
 ```
-> **Tips for playing with code:** preparing...
 
 Sample gif images for interpolation:
 <div class="imgCollage">
@@ -167,7 +148,6 @@ Example code:
 python regularization.py --run run2
 python regularization_renderer.py --run run2
 ```
-> **Tips for playing with code:** preparing...
 
 > **Warning:** The rendering code `interpolation_renderer.py` and `regularization_renderer.py` does not work in server (i.e., without a connected display). If you want to render figures in server, try [Open3D headless rendering](http://www.open3d.org/docs/latest/tutorial/Advanced/headless_rendering.html).
 
